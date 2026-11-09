@@ -18,48 +18,25 @@ nav button{flex:0 0 auto;border:0;border-radius:12px;background:transparent;colo
 .page{display:none}.page.active{display:block}.section-title{font-size:20px;margin:22px 2px 12px}.muted{color:var(--muted);line-height:1.55}
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--panel);border:1px solid #ffffff14;border-radius:16px;padding:12px;min-width:0}.cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:#2b1b38}.cover-placeholder{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#55306f,#1a1025 70%);color:#e8d5ff;font-size:34px;font-weight:900;letter-spacing:4px}.card h3{font-size:14px;margin:9px 0 3px}.card p{font-size:12px;color:var(--muted);margin:0}.action{background:#6d35a0;color:white;border:0;border-radius:12px;padding:11px 14px;font-weight:700;margin-top:10px}.back{background:#291a36;color:#e8d8f6;margin:0 0 14px}.track{padding:10px 2px;border-bottom:1px solid #ffffff12;color:#e8dff0}.field{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0e0a14;color:white;margin:6px 0 12px} .owner-note{font-size:12px;color:#c5b4d2}
 .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery-grid img{width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover}.wall-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.wall-card{background:var(--panel);border:1px solid #ffffff18;border-radius:15px;padding:9px;min-width:0}.wall-card img{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:#160d20}.wall-actions{display:flex;gap:6px;flex-wrap:wrap}.wall-actions a,.wall-actions button{flex:1;text-align:center;font-size:12px;padding:9px 7px;border:0;border-radius:9px;background:#6d35a0;color:#fff;text-decoration:none;font-weight:700}.wall-actions button{background:#302039}
-.owner-tools{display:none;margin-top:14px}
-.owner-tools.unlocked{display:block}
-.admin-preview{display:block;max-width:100%;width:100%;max-height:360px;object-fit:contain;background:#09070e;border-radius:12px;margin:12px 0}.batch-count{font-size:13px;color:#d8b8f4;margin:8px 0}
-.admin-hint{font-size:12px;color:#c5b4d2;line-height:1.5}
 footer{text-align:center;color:#8e7b9e;font-size:11px;padding:24px 0}
 @media(min-width:600px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-grid{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
-<header><div class="brand" id="vaultLogo" title="WRLDD Vault">WRLDD VAULT</div><div class="tag">THE JUICE WRLD COLLECTION</div></header>
+<header><div class="brand">WRLDD VAULT</div><div class="tag">THE JUICE WRLD COLLECTION</div></header>
 <main>
 <section id="home" class="page active"><div class="hero"><h1>Welcome to the Vault.</h1><p>A fan-made collection celebrating the music, life and legacy of Juice WRLD.</p><p style="margin-top:14px;color:#d8b8f4;font-weight:700">999 FOREVER</p></div><h2 class="section-title">Explore the collection</h2><p class="muted">Choose a section below to explore albums, his life, your gallery and wallpapers. Saved images are kept on this device.</p></section>
 <section id="life" class="page"><h2 class="section-title">His Life</h2><div class="card"><h3>Jarad Anthony Higgins</h3><p class="muted">Juice WRLD was an American rapper, singer and songwriter known for blending hip-hop, emo rap and melodic songwriting. Born on December 2, 1998, in Chicago, Illinois, he rose to international recognition with songs including “Lucid Dreams” and “All Girls Are the Same”. His music often explored emotion, relationships and personal struggles. He died in December 2019, aged 21. His music and influence continue to reach listeners around the world.</p></div></section>
 <section id="albums" class="page"><h2 class="section-title">Albums & Projects</h2><div id="albumGrid" class="cards"></div></section>
 <section id="albumDetail" class="page"><button class="action back" onclick="showPage('albums')">← Back to Albums</button><div id="albumInfo"></div></section>
 <section id="gallery" class="page"><h2 class="section-title">Gallery</h2><p class="muted">Add images you have permission to use. They'll be saved locally on this device.</p><input class="field" type="file" accept="image/*" multiple id="galleryFiles"><div id="galleryItems" class="gallery-grid"></div></section>
-<section id="wallpapers" class="page"><h2 class="section-title">Wallpapers</h2><p class="muted">Community visitors can view and download wallpapers published by the Vault owner. Hide removes a wallpaper from this page on this device only.</p><div id="builtInWallpapers" class="wall-grid"></div><button class="action" onclick="restoreWallpapers()">Restore hidden wallpapers</button><h3 class="section-title">Your own wallpapers</h3><p class="muted">Add your own images below. These stay on this device.</p><input class="field" type="file" accept="image/*" multiple id="wallFiles"><div id="wallItems" class="gallery-grid"></div></section>
-<section id="owner" class="page">
-<h2 class="section-title">Vault Owner</h2>
-<div class="card">
-<p class="muted">Owner tools are hidden from the main navigation. Enter your local PIN to prepare a wallpaper for GitHub publishing.</p>
-<input class="field" id="pin" type="password" inputmode="numeric" placeholder="Create or enter your PIN">
-<button class="action" onclick="ownerAccess()">Unlock owner tools</button>
-<p id="ownerMsg" class="owner-note"></p>
-<div id="ownerTools" class="owner-tools">
-<h3>Batch wallpaper publishing</h3>
-<p class="admin-hint">Select multiple images in one go. Their filenames become their wallpaper names. The app prepares one ZIP containing every image and the updated public gallery list.</p>
-<input class="field" id="publishFiles" type="file" accept="image/*" multiple>
-<p id="batchCount" class="batch-count">No images selected yet.</p>
-<div id="batchPreview" class="gallery-grid"></div>
-<button class="action" onclick="prepareBatchPublish()">Prepare entire batch</button>
-<p id="publishMsg" class="admin-hint"></p>
-<a class="action" style="display:inline-block;text-decoration:none" href="https://github.com/TheWRLDD999/WRLDD-Vault/upload/main" target="_blank" rel="noopener">Open GitHub upload</a>
-<p class="admin-hint">Important: this does not publish automatically. Upload the prepared image into the wallpapers folder and upload the updated wallpapers.json to the repository. GitHub then makes it visible to everyone.</p>
-</div>
-</div>
-</section>
+<section id="wallpapers" class="page"><h2 class="section-title">Wallpapers</h2><p class="muted">A starter collection of purple 999-inspired wallpapers is included. Tap Download to save one to your phone. Hide removes it from this page on this device.</p><div id="sharedWallpapers" class="wall-grid"></div><div id="builtInWallpapers" class="wall-grid"></div><button class="action" onclick="restoreWallpapers()">Restore hidden wallpapers</button><h3 class="section-title">Your own wallpapers</h3><p class="muted">Add your own images below. These stay on this device.</p><input class="field" type="file" accept="image/*" multiple id="wallFiles"><div id="wallItems" class="gallery-grid"></div></section>
+<section id="owner" class="page"><h2 class="section-title">Owner Area</h2><div class="card"><p class="muted">A simple local access screen for this prototype. It is not strong security and does not protect files from someone with device access.</p><input class="field" id="pin" type="password" inputmode="numeric" placeholder="Create or enter a PIN"><button class="action" onclick="ownerAccess()">Continue</button><p id="ownerMsg" class="owner-note"></p></div></section>
 <section id="about" class="page"><h2 class="section-title">About WRLDD Vault</h2><div class="card"><p class="muted">WRLDD Vault is an unofficial fan-made project and is not affiliated with Juice WRLD’s estate, label or representatives. Names and marks belong to their respective owners. Artwork and music remain the property of their rights holders.</p><p class="owner-note">CREATED & PUBLISHED BY @TheWRLDD999</p></div></section>
 <footer>999 FOREVER · UNOFFICIAL FAN PROJECT</footer>
 </main>
 <nav id="nav">
-<button class="active" data-page="home">Home</button><button data-page="life">His Life</button><button data-page="albums">Albums</button><button data-page="gallery">Gallery</button><button data-page="wallpapers">Wallpapers</button><button data-page="about">About</button>
+<button class="active" data-page="home">Home</button><button data-page="life">His Life</button><button data-page="albums">Albums</button><button data-page="gallery">Gallery</button><button data-page="wallpapers">Wallpapers</button><button data-page="owner">Owner</button><button data-page="about">About</button>
 </nav>
 <script>
 const albums=[
@@ -104,97 +81,15 @@ albums.forEach((a,i)=>{let d=document.createElement('div');d.className='card';d.
 })();
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
-let logoTapCount=0,logoTapTimer=null;
-document.getElementById('vaultLogo').addEventListener('click',()=>{
- logoTapCount++;
- clearTimeout(logoTapTimer);
- if(logoTapCount>=5){logoTapCount=0;showPage('owner')}
- else{logoTapTimer=setTimeout(()=>logoTapCount=0,1800)}
-});
 function openAlbum(i){let a=albums[i];document.getElementById('albumInfo').innerHTML=`<h2 class="section-title">${a.title}</h2><p class="muted">${a.year} · ${a.desc}</p><h3>Track listing</h3>${a.tracks.map((t,n)=>`<div class="track">${String(n+1).padStart(2,'0')} · ${t}</div>`).join('')}`;showPage('albumDetail')}
-async function renderBundledWallpapers(){
- const hidden=JSON.parse(localStorage.getItem('hiddenVaultWallpapers')||'[]');
- const host=document.getElementById('builtInWallpapers');host.innerHTML='';
- let wallpapers=[];
- try{const response=await fetch('./wallpapers.json?refresh='+Date.now());if(response.ok)wallpapers=await response.json()}catch(e){}
- if(!Array.isArray(wallpapers))wallpapers=[];
- wallpapers.forEach((w)=>{
-  if(!w||!w.file||hidden.includes(w.file))return;
-  const card=document.createElement('div');card.className='wall-card';
-  const img=document.createElement('img');img.loading='lazy';img.src='./wallpapers/'+encodeURIComponent(w.file);img.alt=w.name||'Vault wallpaper';
-  const label=document.createElement('p');label.textContent=w.name||w.file;label.className='muted';
-  const actions=document.createElement('div');actions.className='wall-actions';
-  const link=document.createElement('a');link.href='./wallpapers/'+encodeURIComponent(w.file);link.download=w.file;link.textContent='⬇ Download';
-  const hide=document.createElement('button');hide.textContent='Hide';hide.onclick=()=>{const now=JSON.parse(localStorage.getItem('hiddenVaultWallpapers')||'[]');now.push(w.file);localStorage.setItem('hiddenVaultWallpapers',JSON.stringify(now));renderBundledWallpapers()};
-  actions.append(link,hide);card.append(img,label,actions);host.append(card);
- });
-}
+const bundledWallpapers=Array.from({length:10},(_,i)=>({file:`wallpaper-${String(i+1).padStart(2,'0')}.jpg`,name:`999 Wallpaper ${i+1}`}));
+function renderBundledWallpapers(){const hidden=JSON.parse(localStorage.getItem('hiddenVaultWallpapers')||'[]');const host=document.getElementById('builtInWallpapers');host.innerHTML='';bundledWallpapers.forEach((w,i)=>{if(hidden.includes(w.file))return;const card=document.createElement('div');card.className='wall-card';const img=document.createElement('img');img.loading='lazy';img.src=w.file;img.alt=w.name;const label=document.createElement('p');label.textContent=w.name;label.className='muted';const actions=document.createElement('div');actions.className='wall-actions';const link=document.createElement('a');link.href=w.file;link.download=w.file;link.textContent='Download';const hide=document.createElement('button');hide.textContent='Hide';hide.onclick=()=>{const now=JSON.parse(localStorage.getItem('hiddenVaultWallpapers')||'[]');now.push(w.file);localStorage.setItem('hiddenVaultWallpapers',JSON.stringify(now));renderBundledWallpapers()};actions.append(link,hide);card.append(img,label,actions);host.append(card)});}
 function restoreWallpapers(){localStorage.removeItem('hiddenVaultWallpapers');renderBundledWallpapers()}
-let selectedPublishFiles=[];
-document.getElementById('publishFiles').addEventListener('change',function(){
- selectedPublishFiles=Array.from(this.files||[]).filter(f=>f.type.startsWith('image/'));
- const count=document.getElementById('batchCount');
- const preview=document.getElementById('batchPreview');preview.innerHTML='';
- count.textContent=selectedPublishFiles.length ? `${selectedPublishFiles.length} image${selectedPublishFiles.length===1?'':'s'} selected.` : 'No images selected yet.';
- selectedPublishFiles.slice(0,12).forEach(file=>{
-  const box=document.createElement('div');box.className='card';
-  const img=document.createElement('img');img.className='admin-preview';img.alt=file.name;img.src=URL.createObjectURL(file);
-  const label=document.createElement('p');label.className='admin-hint';label.textContent=file.name;
-  box.append(img,label);preview.append(box);
- });
- if(selectedPublishFiles.length>12){const more=document.createElement('p');more.className='admin-hint';more.textContent=`Plus ${selectedPublishFiles.length-12} more image(s).`;preview.append(more)}
- document.getElementById('publishMsg').textContent='';
-});
-function safeWallpaperFilename(name){
- const base=(name||'wallpaper').replace(/\.[^.]+$/,'').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,48)||'wallpaper';
- return base;
-}
-function crc32(bytes){
- let crc=0xffffffff;
- for(let i=0;i<bytes.length;i++){crc^=bytes[i];for(let j=0;j<8;j++)crc=(crc>>>1)^((crc&1)?0xedb88320:0)}
- return (crc^0xffffffff)>>>0;
-}
-async function makeZip(files){
- const enc=new TextEncoder();const localParts=[];const centralParts=[];let offset=0;
- for(const item of files){
-  const nameBytes=enc.encode(item.name);const data=item.data instanceof Uint8Array?item.data:new Uint8Array(await item.data.arrayBuffer());const crc=crc32(data);
-  const local=new Uint8Array(30+nameBytes.length);const lv=new DataView(local.buffer);
-  lv.setUint32(0,0x04034b50,true);lv.setUint16(4,20,true);lv.setUint16(6,0x0800,true);lv.setUint16(8,0,true);lv.setUint32(14,crc,true);lv.setUint32(18,data.length,true);lv.setUint32(22,data.length,true);lv.setUint16(26,nameBytes.length,true);lv.setUint16(28,0,true);local.set(nameBytes,30);
-  localParts.push(local,data);
-  const central=new Uint8Array(46+nameBytes.length);const cv=new DataView(central.buffer);
-  cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x0800,true);cv.setUint16(10,0,true);cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,nameBytes.length,true);cv.setUint16(30,0,true);cv.setUint16(32,0,true);cv.setUint16(34,0,true);cv.setUint32(38,0,true);cv.setUint32(42,offset,true);central.set(nameBytes,46);centralParts.push(central);
-  offset+=local.length+data.length;
- }
- const centralSize=centralParts.reduce((n,a)=>n+a.length,0);const end=new Uint8Array(22);const ev=new DataView(end.buffer);
- ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);
- return new Blob([...localParts,...centralParts,end],{type:'application/zip'});
-}
-async function prepareBatchPublish(){
- const msg=document.getElementById('publishMsg');
- if(!selectedPublishFiles.length){msg.textContent='Choose one or more images first.';return}
- if(selectedPublishFiles.length>100){msg.textContent='Please publish up to 100 images per batch to keep the ZIP manageable.';return}
- msg.textContent='Preparing your batch… please keep this page open.';
- try{
-  let manifest=[];
-  try{const response=await fetch('./wallpapers.json?refresh='+Date.now());if(response.ok)manifest=await response.json()}catch(e){}
-  if(!Array.isArray(manifest))manifest=[];
-  const used=new Set(manifest.map(w=>w&&w.file).filter(Boolean));
-  const zipFiles=[];let added=0;
-  for(const file of selectedPublishFiles){
-   if(!file.type.startsWith('image/'))continue;
-   const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
-   const base=safeWallpaperFilename(file.name);let filename=base+'.'+ext;let n=2;
-   while(used.has(filename)){filename=base+'-'+n+'.'+ext;n++}
-   used.add(filename);
-   zipFiles.push({name:'wallpapers/'+filename,data:file});
-   manifest.push({file:filename,name:file.name.replace(/\.[^.]+$/,'')||'Vault wallpaper'});added++;
-  }
-  zipFiles.push({name:'wallpapers.json',data:new Blob([JSON.stringify(manifest,null,2)],{type:'application/json'})});
-  const blob=await makeZip(zipFiles);const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='WRLDD-Vault-Wallpaper-Batch.zip';document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),60000);
-  msg.textContent=`Batch ready! ${added} wallpaper(s) and the updated wallpapers.json are together in one ZIP. Extract it, upload all images into the repository's wallpapers folder, upload wallpapers.json to the repository root, then commit once.`;
- }catch(error){console.error(error);msg.textContent='Could not prepare the ZIP. Try a smaller batch or smaller images.'}
-}
+async function renderSharedWallpapers(){const host=document.getElementById('sharedWallpapers');try{const response=await fetch('./wallpapers.json',{cache:'no-store'});if(!response.ok)return;const items=await response.json();if(!Array.isArray(items))return;items.forEach(item=>{if(!item||!item.url)return;const card=document.createElement('div');card.className='wall-card';const img=document.createElement('img');img.loading='lazy';img.src=item.url;img.alt=item.name||'Shared wallpaper';const label=document.createElement('p');label.className='muted';label.textContent=item.name||'WRLDD Vault wallpaper';const actions=document.createElement('div');actions.className='wall-actions';const link=document.createElement('a');link.href=item.url;link.download=item.file||'wallpaper.jpg';link.textContent='⬇ Download';actions.append(link);card.append(img,label,actions);host.append(card)})}catch(e){console.info('Shared wallpapers are unavailable while offline.')}}
+function ownerAccess(){let p=document.getElementById('pin').value,m=document.getElementById('ownerMsg');if(!p){m.textContent='Enter a PIN to continue.';return}let saved=localStorage.getItem('vaultPin');if(!saved){localStorage.setItem('vaultPin',p);m.textContent='Local PIN created. This is only a basic screen.'}else m.textContent=saved===p?'Owner area unlocked.':'That PIN does not match.'}
 function addImages(input,target,key){input.addEventListener('change',async()=>{let files=[...input.files];let existing=JSON.parse(localStorage.getItem(key)||'[]');for(let f of files){if(!f.type.startsWith('image/'))continue;let url=await new Promise(r=>{let rd=new FileReader();rd.onload=()=>r(rd.result);rd.readAsDataURL(f)});existing.push(url)}try{localStorage.setItem(key,JSON.stringify(existing));renderImages(target,key)}catch(e){alert('Storage is full. Try adding fewer or smaller images.')}input.value=''})}
-function renderImages(target,key){let arr=JSON.parse(localStorage.getItem(key)||'[]');document.getElementById(target).innerHTML=arr.map(src=>`<img loading="laz
+function renderImages(target,key){let arr=JSON.parse(localStorage.getItem(key)||'[]');document.getElementById(target).innerHTML=arr.map(src=>`<img loading="lazy" src="${src}" alt="Saved image">`).join('')}
+addImages(document.getElementById('galleryFiles'),'galleryItems','vaultGallery');addImages(document.getElementById('wallFiles'),'wallItems','vaultWallpapers');renderImages('galleryItems','vaultGallery');renderImages('wallItems','vaultWallpapers');renderBundledWallpapers();renderSharedWallpapers();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
