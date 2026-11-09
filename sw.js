@@ -1,4 +1,4 @@
-const CACHE='wrlld-vault-v2';
+const CACHE='wrlld-vault-v3';
 const WALLPAPERS=Array.from({length:10},(_,i)=>`./wallpaper-${String(i+1).padStart(2,'0')}.jpg`);
 const CORE=['./','./index.html','./manifest.webmanifest','./icon-192.png','./icon-512.png','./README.txt',...WALLPAPERS];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
