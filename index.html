@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#120b20">
+<meta name="description" content="The Juice WRLD Collection">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<title>WRLDD Vault</title>
+<style>
+:root{color-scheme:dark;--bg:#09070e;--panel:#171020;--purple:#8c45d6;--muted:#b9a9c8;--line:#342442}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -15%,#38204f 0,#120b1b 40%,var(--bg) 75%);color:#f7f1fc;font:15px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+header{padding:24px 18px 16px;text-align:center;border-bottom:1px solid #ffffff12} .brand{font-size:26px;font-weight:850;letter-spacing:2px}.tag{font-size:10px;letter-spacing:3px;color:#c9a8e8;margin-top:5px}
+main{max-width:760px;margin:auto;padding:18px 14px 95px}.hero{padding:23px 18px;border:1px solid #ffffff19;border-radius:20px;background:linear-gradient(125deg,#241333,#130e1c 55%,#21132e);box-shadow:0 12px 38px #0008}.hero h1{font-size:24px;margin:0 0 8px}.hero p{color:var(--muted);line-height:1.5;margin:0}
+nav{position:fixed;z-index:5;bottom:0;left:0;right:0;display:flex;overflow-x:auto;gap:5px;padding:9px max(8px,env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom));background:#100b18f2;border-top:1px solid var(--line);backdrop-filter:blur(14px)}
+nav button{flex:0 0 auto;border:0;border-radius:12px;background:transparent;color:#c7b6d5;padding:11px 12px;font-weight:650}nav button.active{background:#472365;color:white}
+.page{display:none}.page.active{display:block}.section-title{font-size:20px;margin:22px 2px 12px}.muted{color:var(--muted);line-height:1.55}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--panel);border:1px solid #ffffff14;border-radius:16px;padding:12px;min-width:0}.cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:#2b1b38}.card h3{font-size:14px;margin:9px 0 3px}.card p{font-size:12px;color:var(--muted);margin:0}.action{background:#6d35a0;color:white;border:0;border-radius:12px;padding:11px 14px;font-weight:700;margin-top:10px}.back{background:#291a36;color:#e8d8f6;margin:0 0 14px}.track{padding:10px 2px;border-bottom:1px solid #ffffff12;color:#e8dff0}.field{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0e0a14;color:white;margin:6px 0 12px} .owner-note{font-size:12px;color:#c5b4d2}
+.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery-grid img{width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover}
+footer{text-align:center;color:#8e7b9e;font-size:11px;padding:24px 0}
+@media(min-width:600px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header><div class="brand">WRLDD VAULT</div><div class="tag">THE JUICE WRLD COLLECTION</div></header>
+<main>
+<section id="home" class="page active"><div class="hero"><h1>Welcome to the Vault.</h1><p>A fan-made collection celebrating the music, life and legacy of Juice WRLD.</p><p style="margin-top:14px;color:#d8b8f4;font-weight:700">999 FOREVER</p></div><h2 class="section-title">Explore the collection</h2><p class="muted">Choose a section below to explore albums, his life, your gallery and wallpapers. Saved images are kept on this device.</p></section>
+<section id="life" class="page"><h2 class="section-title">His Life</h2><div class="card"><h3>Jarad Anthony Higgins</h3><p class="muted">Juice WRLD was an American rapper, singer and songwriter known for blending hip-hop, emo rap and melodic songwriting. Born on December 2, 1998, in Chicago, Illinois, he rose to international recognition with songs including “Lucid Dreams” and “All Girls Are the Same”. His music often explored emotion, relationships and personal struggles. He died in December 2019, aged 21. His music and influence continue to reach listeners around the world.</p></div></section>
+<section id="albums" class="page"><h2 class="section-title">Albums & Projects</h2><div id="albumGrid" class="cards"></div></section>
+<section id="albumDetail" class="page"><button class="action back" onclick="showPage('albums')">← Back to Albums</button><div id="albumInfo"></div></section>
+<section id="gallery" class="page"><h2 class="section-title">Gallery</h2><p class="muted">Add images you have permission to use. They'll be saved locally on this device.</p><input class="field" type="file" accept="image/*" multiple id="galleryFiles"><div id="galleryItems" class="gallery-grid"></div></section>
+<section id="wallpapers" class="page"><h2 class="section-title">Wallpapers</h2><p class="muted">Save your own wallpaper images here for offline viewing.</p><input class="field" type="file" accept="image/*" multiple id="wallFiles"><div id="wallItems" class="gallery-grid"></div></section>
+<section id="owner" class="page"><h2 class="section-title">Owner Area</h2><div class="card"><p class="muted">A simple local access screen for this prototype. It is not strong security and does not protect files from someone with device access.</p><input class="field" id="pin" type="password" inputmode="numeric" placeholder="Create or enter a PIN"><button class="action" onclick="ownerAccess()">Continue</button><p id="ownerMsg" class="owner-note"></p></div></section>
+<section id="about" class="page"><h2 class="section-title">About WRLDD Vault</h2><div class="card"><p class="muted">WRLDD Vault is an unofficial fan-made project and is not affiliated with Juice WRLD’s estate, label or representatives. Names and marks belong to their respective owners. Artwork and music remain the property of their rights holders.</p><p class="owner-note">CREATED & PUBLISHED BY @TheWRLDD999</p></div></section>
+<footer>999 FOREVER · UNOFFICIAL FAN PROJECT</footer>
+</main>
+<nav id="nav">
+<button class="active" data-page="home">Home</button><button data-page="life">His Life</button><button data-page="albums">Albums</button><button data-page="gallery">Gallery</button><button data-page="wallpapers">Wallpapers</button><button data-page="owner">Owner</button><button data-page="about">About</button>
+</nav>
+<script>
+const albums=[
+{title:"Goodbye & Good Riddance",year:"2018",art:"https://coverartarchive.org/release-group/6c2b2d9c-8b8f-4b2b-9d7c-0e7a4d1b1b0a/front",desc:"Juice WRLD's breakthrough studio album.",tracks:["Intro","All Girls Are the Same","Lucid Dreams","Lean Wit Me","Wasted","Armed and Dangerous","Black & White","Hurt Me","End of the Road"]},
+{title:"Death Race for Love",year:"2019",art:"https://coverartarchive.org/release-group/4d7e9c2a-9d88-4e1a-9b0f-6a8a0a9f7c1b/front",desc:"His second studio album, released in 2019.",tracks:["Empty","Maze","HeMotions","Demonz (Interlude)","Fast","Hear Me Calling","Flaws and Sins"]},
+{title:"Legends Never Die",year:"2020",art:"https://coverartarchive.org/release-group/8a8a6d9f-7d1f-4b3e-9a0a-1f2d3c4b5a6f/front",desc:"The first posthumous studio album.",tracks:["Anxiety (Intro)","Conversations","Titanic","Bad Energy","Righteous","Blood on My Jeans"]},
+{title:"Fighting Demons",year:"2021",art:"https://coverartarchive.org/release-group/7f1b6f8e-3e2a-4f5b-8c7d-9a0b1c2d3e4f/front",desc:"A posthumous album released in 2021.",tracks:["Burn","Already Dead","You Wouldn't Understand","Wandered to LA","Rockstar in His Prime"]},
+{title:"The Party Never Ends",year:"2024",art:"https://coverartarchive.org/release-group/2d9e8c7b-6a5f-4d3c-9b1a-0f8e7d6c5b4a/front",desc:"A posthumous studio album released in 2024.",tracks:["The Party Never Ends","Misfit","AGATS2 (Insecure)","Lace It"]},
+{title:"999 EP",year:"2017",art:"",desc:"An early independent project.",tracks:["Moonlight","Let's Get It","Eye Contact"]}
+];
+const grid=document.getElementById('albumGrid');
+albums.forEach((a,i)=>{let d=document.createElement('div');d.className='card';d.innerHTML=`<img class="cover" loading="lazy" src="${a.art}" alt="${a.title} cover" onerror="this.style.opacity='.12';this.alt='Cover unavailable'"><h3>${a.title}</h3><p>${a.year}</p><button class="action" onclick="openAlbum(${i})">View album</button>`;grid.appendChild(d)});
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function openAlbum(i){let a=albums[i];document.getElementById('albumInfo').innerHTML=`<h2 class="section-title">${a.title}</h2><p class="muted">${a.year} · ${a.desc}</p><h3>Track listing</h3>${a.tracks.map((t,n)=>`<div class="track">${String(n+1).padStart(2,'0')} · ${t}</div>`).join('')}`;showPage('albumDetail')}
+function ownerAccess(){let p=document.getElementById('pin').value,m=document.getElementById('ownerMsg');if(!p){m.textContent='Enter a PIN to continue.';return}let saved=localStorage.getItem('vaultPin');if(!saved){localStorage.setItem('vaultPin',p);m.textContent='Local PIN created. This is only a basic screen.'}else m.textContent=saved===p?'Owner area unlocked.':'That PIN does not match.'}
+function addImages(input,target,key){input.addEventListener('change',async()=>{let files=[...input.files];let existing=JSON.parse(localStorage.getItem(key)||'[]');for(let f of files){if(!f.type.startsWith('image/'))continue;let url=await new Promise(r=>{let rd=new FileReader();rd.onload=()=>r(rd.result);rd.readAsDataURL(f)});existing.push(url)}try{localStorage.setItem(key,JSON.stringify(existing));renderImages(target,key)}catch(e){alert('Storage is full. Try adding fewer or smaller images.')}input.value=''})}
+function renderImages(target,key){let arr=JSON.parse(localStorage.getItem(key)||'[]');document.getElementById(target).innerHTML=arr.map(src=>`<img loading="lazy" src="${src}" alt="Saved image">`).join('')}
+addImages(document.getElementById('galleryFiles'),'galleryItems','vaultGallery');addImages(document.getElementById('wallFiles'),'wallItems','vaultWallpapers');renderImages('galleryItems','vaultGallery');renderImages('wallItems','vaultWallpapers');
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script>
+</body></html>
