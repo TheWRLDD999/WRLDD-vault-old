@@ -16,7 +16,7 @@ main{max-width:760px;margin:auto;padding:18px 14px 95px}.hero{padding:23px 18px;
 nav{position:fixed;z-index:5;bottom:0;left:0;right:0;display:flex;overflow-x:auto;gap:5px;padding:9px max(8px,env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom));background:#100b18f2;border-top:1px solid var(--line);backdrop-filter:blur(14px)}
 nav button{flex:0 0 auto;border:0;border-radius:12px;background:transparent;color:#c7b6d5;padding:11px 12px;font-weight:650}nav button.active{background:#472365;color:white}
 .page{display:none}.page.active{display:block}.section-title{font-size:20px;margin:22px 2px 12px}.muted{color:var(--muted);line-height:1.55}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--panel);border:1px solid #ffffff14;border-radius:16px;padding:12px;min-width:0}.cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:#2b1b38}.card h3{font-size:14px;margin:9px 0 3px}.card p{font-size:12px;color:var(--muted);margin:0}.action{background:#6d35a0;color:white;border:0;border-radius:12px;padding:11px 14px;font-weight:700;margin-top:10px}.back{background:#291a36;color:#e8d8f6;margin:0 0 14px}.track{padding:10px 2px;border-bottom:1px solid #ffffff12;color:#e8dff0}.field{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0e0a14;color:white;margin:6px 0 12px} .owner-note{font-size:12px;color:#c5b4d2}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{background:var(--panel);border:1px solid #ffffff14;border-radius:16px;padding:12px;min-width:0}.cover{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;background:#2b1b38}.cover-placeholder{display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 35%,#55306f,#1a1025 70%);color:#e8d5ff;font-size:34px;font-weight:900;letter-spacing:4px}.card h3{font-size:14px;margin:9px 0 3px}.card p{font-size:12px;color:var(--muted);margin:0}.action{background:#6d35a0;color:white;border:0;border-radius:12px;padding:11px 14px;font-weight:700;margin-top:10px}.back{background:#291a36;color:#e8d8f6;margin:0 0 14px}.track{padding:10px 2px;border-bottom:1px solid #ffffff12;color:#e8dff0}.field{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:#0e0a14;color:white;margin:6px 0 12px} .owner-note{font-size:12px;color:#c5b4d2}
 .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.gallery-grid img{width:100%;border-radius:12px;aspect-ratio:1;object-fit:cover}
 footer{text-align:center;color:#8e7b9e;font-size:11px;padding:24px 0}
 @media(min-width:600px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-grid{grid-template-columns:repeat(3,1fr)}}
@@ -40,15 +40,45 @@ footer{text-align:center;color:#8e7b9e;font-size:11px;padding:24px 0}
 </nav>
 <script>
 const albums=[
-{title:"Goodbye & Good Riddance",year:"2018",art:"https://coverartarchive.org/release-group/6c2b2d9c-8b8f-4b2b-9d7c-0e7a4d1b1b0a/front",desc:"Juice WRLD's breakthrough studio album.",tracks:["Intro","All Girls Are the Same","Lucid Dreams","Lean Wit Me","Wasted","Armed and Dangerous","Black & White","Hurt Me","End of the Road"]},
-{title:"Death Race for Love",year:"2019",art:"https://coverartarchive.org/release-group/4d7e9c2a-9d88-4e1a-9b0f-6a8a0a9f7c1b/front",desc:"His second studio album, released in 2019.",tracks:["Empty","Maze","HeMotions","Demonz (Interlude)","Fast","Hear Me Calling","Flaws and Sins"]},
-{title:"Legends Never Die",year:"2020",art:"https://coverartarchive.org/release-group/8a8a6d9f-7d1f-4b3e-9a0a-1f2d3c4b5a6f/front",desc:"The first posthumous studio album.",tracks:["Anxiety (Intro)","Conversations","Titanic","Bad Energy","Righteous","Blood on My Jeans"]},
-{title:"Fighting Demons",year:"2021",art:"https://coverartarchive.org/release-group/7f1b6f8e-3e2a-4f5b-8c7d-9a0b1c2d3e4f/front",desc:"A posthumous album released in 2021.",tracks:["Burn","Already Dead","You Wouldn't Understand","Wandered to LA","Rockstar in His Prime"]},
-{title:"The Party Never Ends",year:"2024",art:"https://coverartarchive.org/release-group/2d9e8c7b-6a5f-4d3c-9b1a-0f8e7d6c5b4a/front",desc:"A posthumous studio album released in 2024.",tracks:["The Party Never Ends","Misfit","AGATS2 (Insecure)","Lace It"]},
+{title:"Goodbye & Good Riddance",year:"2018",art:"",desc:"Juice WRLD's breakthrough studio album.",tracks:["Intro","All Girls Are the Same","Lucid Dreams","Lean Wit Me","Wasted","Armed and Dangerous","Black & White","Hurt Me","End of the Road"]},
+{title:"Death Race for Love",year:"2019",art:"",desc:"His second studio album, released in 2019.",tracks:["Empty","Maze","HeMotions","Demonz (Interlude)","Fast","Hear Me Calling","Flaws and Sins"]},
+{title:"Legends Never Die",year:"2020",art:"",desc:"The first posthumous studio album.",tracks:["Anxiety (Intro)","Conversations","Titanic","Bad Energy","Righteous","Blood on My Jeans"]},
+{title:"Fighting Demons",year:"2021",art:"",desc:"A posthumous album released in 2021.",tracks:["Burn","Already Dead","You Wouldn't Understand","Wandered to LA","Rockstar in His Prime"]},
+{title:"The Party Never Ends",year:"2024",art:"",desc:"A posthumous studio album released in 2024.",tracks:["The Party Never Ends","Misfit","AGATS2 (Insecure)","Lace It"]},
 {title:"999 EP",year:"2017",art:"",desc:"An early independent project.",tracks:["Moonlight","Let's Get It","Eye Contact"]}
 ];
 const grid=document.getElementById('albumGrid');
-albums.forEach((a,i)=>{let d=document.createElement('div');d.className='card';d.innerHTML=`<img class="cover" loading="lazy" src="${a.art}" alt="${a.title} cover" onerror="this.style.opacity='.12';this.alt='Cover unavailable'"><h3>${a.title}</h3><p>${a.year}</p><button class="action" onclick="openAlbum(${i})">View album</button>`;grid.appendChild(d)});
+albums.forEach((a,i)=>{let d=document.createElement('div');d.className='card';d.innerHTML=`<div class="cover cover-placeholder" id="cover-${i}" role="img" aria-label="${a.title} cover"><span>999</span></div><h3>${a.title}</h3><p>${a.year}</p><button class="action" onclick="openAlbum(${i})">View album</button>`;grid.appendChild(d)});
+/* Fetch verified catalogue artwork from the public Juice WRLD project catalogue.
+   The app remains usable if this service is unavailable; covers then show a clean placeholder. */
+(async function loadAlbumCovers(){
+  const aliases={
+    "Goodbye & Good Riddance":["goodbye-and-good-riddance"],
+    "Death Race for Love":["death-race-for-love"],
+    "Legends Never Die":["legends-never-die"],
+    "Fighting Demons":["fighting-demons"],
+    "The Party Never Ends":["the-party-never-ends"],
+    "999 EP":["999-ep","999-ep-juice-wrld"]
+  };
+  try{
+    const response=await fetch('https://juicewrld.io/api/v1/projects?kind=album,ep&limit=100');
+    if(!response.ok)throw new Error('Catalogue unavailable');
+    const payload=await response.json();
+    const projects=payload.data||[];
+    albums.forEach((album,i)=>{
+      const match=projects.find(project=>(aliases[album.title]||[]).includes(project.slug));
+      if(match && match.cover){
+        const img=new Image();
+        img.className='cover';
+        img.loading='lazy';
+        img.alt=album.title+' cover';
+        img.src=match.cover;
+        img.onerror=()=>{const slot=document.getElementById('cover-'+i);if(slot)slot.innerHTML='<span>999</span>'};
+        img.onload=()=>{const slot=document.getElementById('cover-'+i);if(slot)slot.replaceWith(img)};
+      }
+    });
+  }catch(error){console.info('Album artwork will remain as placeholders until a connection is available.');}
+})();
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
 function openAlbum(i){let a=albums[i];document.getElementById('albumInfo').innerHTML=`<h2 class="section-title">${a.title}</h2><p class="muted">${a.year} · ${a.desc}</p><h3>Track listing</h3>${a.tracks.map((t,n)=>`<div class="track">${String(n+1).padStart(2,'0')} · ${t}</div>`).join('')}`;showPage('albumDetail')}
