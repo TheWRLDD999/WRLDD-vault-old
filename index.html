@@ -49,35 +49,52 @@ const albums=[
 ];
 const grid=document.getElementById('albumGrid');
 albums.forEach((a,i)=>{let d=document.createElement('div');d.className='card';d.innerHTML=`<div class="cover cover-placeholder" id="cover-${i}" role="img" aria-label="${a.title} cover"><span>999</span></div><h3>${a.title}</h3><p>${a.year}</p><button class="action" onclick="openAlbum(${i})">View album</button>`;grid.appendChild(d)});
-/* Fetch verified catalogue artwork from the public Juice WRLD project catalogue.
-   The app remains usable if this service is unavailable; covers then show a clean placeholder. */
+/* Load album artwork directly from Apple's iTunes Search API.
+   The API returns real Apple-hosted artwork URLs; placeholders remain if offline. */
 (async function loadAlbumCovers(){
-  const aliases={
-    "Goodbye & Good Riddance":["goodbye-and-good-riddance"],
-    "Death Race for Love":["death-race-for-love"],
-    "Legends Never Die":["legends-never-die"],
-    "Fighting Demons":["fighting-demons"],
-    "The Party Never Ends":["the-party-never-ends"],
-    "999 EP":["999-ep","999-ep-juice-wrld"]
-  };
-  try{
-    const response=await fetch('https://juicewrld.io/api/v1/projects?kind=album,ep&limit=100');
-    if(!response.ok)throw new Error('Catalogue unavailable');
-    const payload=await response.json();
-    const projects=payload.data||[];
-    albums.forEach((album,i)=>{
-      const match=projects.find(project=>(aliases[album.title]||[]).includes(project.slug));
-      if(match && match.cover){
-        const img=new Image();
-        img.className='cover';
-        img.loading='lazy';
-        img.alt=album.title+' cover';
-        img.src=match.cover;
-        img.onerror=()=>{const slot=document.getElementById('cover-'+i);if(slot)slot.innerHTML='<span>999</span>'};
-        img.onload=()=>{const slot=document.getElementById('cover-'+i);if(slot)slot.replaceWith(img)};
-      }
-    });
-  }catch(error){console.info('Album artwork will remain as placeholders until a connection is available.');}
+  const searches = [
+    "Goodbye & Good Riddance Juice WRLD",
+    "Death Race for Love Juice WRLD",
+    "Legends Never Die Juice WRLD",
+    "Fighting Demons Juice WRLD",
+    "The Party Never Ends Juice WRLD",
+    "999 EP Juice WRLD"
+  ];
+  for (let i = 0; i < albums.length; i++) {
+    try {
+      const endpoint = "https://itunes.apple.com/search?term=" +
+        encodeURIComponent(searches[i]) + "&entity=album&limit=15";
+      const response = await fetch(endpoint);
+      if (!response.ok) continue;
+      const payload = await response.json();
+      const results = (payload.results || []).filter(item =>
+        (item.artistName || "").toLowerCase().includes("juice wrld")
+      );
+      const normalize = value => (value || "").toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+      const target = normalize(albums[i].title);
+      const match = results.find(item =>
+        normalize(item.collectionName) === target
+      ) || results.find(item =>
+        normalize(item.collectionName).includes(target) ||
+        target.includes(normalize(item.collectionName))
+      );
+      if (!match || !match.artworkUrl100) continue;
+
+      const imageUrl = match.artworkUrl100.replace("100x100bb", "600x600bb");
+      const img = new Image();
+      img.className = "cover";
+      img.loading = "lazy";
+      img.alt = albums[i].title + " cover";
+      img.onload = () => {
+        const slot = document.getElementById("cover-" + i);
+        if (slot) slot.replaceWith(img);
+      };
+      img.src = imageUrl;
+    } catch (error) {
+      console.info("Album artwork unavailable; keeping the 999 placeholder.");
+    }
+  }
 })();
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo(0,0)}
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
